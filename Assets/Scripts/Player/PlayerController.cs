@@ -8,10 +8,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerAttack playerAttack;
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private PlayerAnimations playerAnimations;
 
     public GameObject Projectile { get => projectile; set => projectile = value; }
 
-    private Vector2 moveInpt;
+    private Vector2 moveInput;
 
     public static PlayerController Instance { get; private set; }
 
@@ -25,14 +26,15 @@ public class PlayerController : MonoBehaviour
         Instance = this;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue value)
     {
-        moveInpt = context.ReadValue<Vector2>();
+        moveInput = value.Get<Vector2>();
+        
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnAttack(InputValue value)
     {
-        if (context.performed)
+        if (value.isPressed)
         {
             playerAttack.Attack();
         }
@@ -40,6 +42,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        playerMovement.Move(moveInpt);
+        playerMovement.Move(moveInput);
+
+        bool isMoving = moveInput.sqrMagnitude > 0.01f;
+        playerAnimations.WalkAnim(isMoving);
     }
 }
