@@ -9,17 +9,17 @@ public class EnemyAnimation : MonoBehaviour
 
     public void IdleAnim(bool state)
     {
-        animator.SetBool("isIdle", state);
+        animator.SetBool("Idle", state);
     }
 
     public void PatrolAnim(bool state)
     {
-       animator.SetBool("isWalking", state);
+       animator.SetBool("Walking", state);
     }
 
     public void ChaseAnim(bool state)
     {
-        animator.SetBool("isWalking", state);
+        animator.SetBool("Walking", state);
     }
     
     public void AttackAnim()

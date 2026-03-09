@@ -38,6 +38,10 @@ public class EnemyController : MonoBehaviour
 
     public Transform[] PatrolPoints => patrolPoints;
 
+    private Vector3[] patrolPositions;
+
+    public Vector3[] PatrolPositions => patrolPositions;
+
     private EnemyState currentState;
     private EnemyState previousState;
 
@@ -63,9 +67,32 @@ public class EnemyController : MonoBehaviour
         currentState.EnterState();
     }
 
+    private void Start()
+    {
+        PatrolPointsConverssion();
+    }
+
+    private void PatrolPointsConverssion()
+    {
+        // Convert patrol points to positions for easier use in states
+        if (patrolPoints != null && patrolPoints.Length > 0)
+        {
+            patrolPositions = new Vector3[patrolPoints.Length];
+            for (int i = 0; i < patrolPoints.Length; i++)
+            {
+                patrolPositions[i] = patrolPoints[i].position;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No patrol points assigned. Patrol state will not function properly.");
+        }
+    }
+
     public void ChangeState(EnemyState state)
     {
-        if(state == null)
+        Debug.Log($"Transitioning from {currentState.GetType().Name} to {state.GetType().Name}");
+        if (state == null)
         {
             Debug.LogError("Trying to change to a null state.");
             return;
@@ -88,6 +115,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
         if (enemyHealth != null) enemyHealth.Initialize(enemyStats.maxHealth);
+        if (enemyMovement != null) enemyMovement.Initialize(enemyStats);
 
     }
 

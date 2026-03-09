@@ -9,17 +9,23 @@ public class EnemyPatrolState : EnemyState
     }
 
     private int currentPatrolIndex = 0;
-    private Transform currentPatrolTarget;
+    private Vector3 currentPatrolTarget;
+    private Vector3[] patrolPositions;
     
     public override void EnterState()
     {
-        if (enemyController.PatrolPoints != null) currentPatrolTarget = enemyController.PatrolPoints[currentPatrolIndex];
+        if (enemyController.PatrolPositions == null || enemyController.PatrolPositions.Length == 0) return;
+
+        currentPatrolIndex = Mathf.Clamp(currentPatrolIndex, 0, enemyController.PatrolPositions.Length - 1);
+        currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
     }
 
     public override void UpdateState()
     {
+        if (currentPatrolTarget == null)
+            return;
 
-            var distance = Vector3.Distance(enemyController.transform.position, currentPatrolTarget.position);
+        var distance = Vector3.Distance(enemyController.transform.position, currentPatrolTarget);
             if (distance > 0.1f)
             {
                 enemyController.EnemyMovementRef.MovePatrol(currentPatrolTarget);
@@ -27,7 +33,7 @@ public class EnemyPatrolState : EnemyState
             else
             {
                 currentPatrolIndex = (currentPatrolIndex + 1) % enemyController.PatrolPoints.Length;
-                currentPatrolTarget = enemyController.PatrolPoints[currentPatrolIndex];
+                currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
                 enemyController.TransitionToIdle();
             } 
     }

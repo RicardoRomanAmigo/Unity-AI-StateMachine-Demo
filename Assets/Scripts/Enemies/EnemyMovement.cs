@@ -17,9 +17,9 @@ public class EnemyMovement : MonoBehaviour
         
     }
 
-    public void MovePatrol(Transform target)
+    public void MovePatrol(Vector3 target)
     {
-        var direction = (target.position - transform.position).normalized;
+        var direction = (target - transform.position).normalized;
         transform.position += direction * patrolSpeed * Time.deltaTime;
     }
 

@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //Player stats
+    private float moveSpeed = 5f;
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Vector2 direction)
     {
-        
+       transform.Translate(direction * Time.deltaTime * moveSpeed); 
     }
 }
