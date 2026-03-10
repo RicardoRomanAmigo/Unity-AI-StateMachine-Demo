@@ -25,7 +25,7 @@ public class ChestController : MonoBehaviour
         // Spawn loot or perform any other actions after the chest is opened
         SpawnLoot();
         yield return new WaitForSeconds(2f);
-        lootPrefab.GetComponent<PickupController>().EnableCollection();
+        
         //Destroy(gameObject); // Destroy the chest after a delay
     }
 
