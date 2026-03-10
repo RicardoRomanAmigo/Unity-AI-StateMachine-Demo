@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77449f3d6e471d147b088e5ac187b847, type: 3}
   m_Name: PlayerProjectile
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileStats
-  speed: 3
+  speed: 5
   lifetime: 3
   damage: 1
-  hitAnimation: {fileID: 0}
+  hitAnimationGO: {fileID: 0}
   hitSound: {fileID: 0}
   ownerTag: Player

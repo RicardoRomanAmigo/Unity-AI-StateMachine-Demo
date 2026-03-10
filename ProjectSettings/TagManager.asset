@@ -41,5 +41,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: WallsTileMap
+    uniqueID: 1127881509
+    locked: 0
+  - name: DecorationTileMap
+    uniqueID: 1274885281
+    locked: 0
+  - name: FloorTilemap
+    uniqueID: 3831844401
+    locked: 0
   m_RenderingLayers:
   - Default

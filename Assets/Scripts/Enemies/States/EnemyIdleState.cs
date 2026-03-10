@@ -29,6 +29,13 @@ public class EnemyIdleState : EnemyState
             enemyController.EnemyAnimationRef.IdleAnim(false);
             enemyController.TransitionToPatrol();
         }
+
+        if (enemyController == null || enemyController.Player == null) return;
+
+        if (Vector3.Distance(enemyController.transform.position, enemyController.Player.transform.position) < enemyController.EnemyStats.chaseRange && enemyController.HasLineOfSight())
+        {
+            enemyController.TransitionToChase();
+        }
     }
 
     public override void ExitState()

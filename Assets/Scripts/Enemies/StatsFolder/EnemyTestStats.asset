@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: EnemyTestStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   maxHealth: 1
-  speed: 10
-  chaseRange: 5
-  attackRange: 2
+  speed: 2
+  chaseRange: 2
+  attackRange: 0.5
   damage: 2
   attackCoolDown: 0
-  patrolSpeed: 3
+  patrolSpeed: 1
   patrolWaitTime: 3
   stunedDuration: 0
   timeToDestroy: 0

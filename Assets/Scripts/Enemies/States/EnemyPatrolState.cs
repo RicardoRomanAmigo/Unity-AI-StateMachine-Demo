@@ -10,7 +10,6 @@ public class EnemyPatrolState : EnemyState
 
     private int currentPatrolIndex = 0;
     private Vector3 currentPatrolTarget;
-    private Vector3[] patrolPositions;
     
     public override void EnterState()
     {
@@ -26,16 +25,24 @@ public class EnemyPatrolState : EnemyState
             return;
 
         var distance = Vector3.Distance(enemyController.transform.position, currentPatrolTarget);
-            if (distance > 0.1f)
-            {
-                enemyController.EnemyMovementRef.MovePatrol(currentPatrolTarget);
-            }
-            else
-            {
-                currentPatrolIndex = (currentPatrolIndex + 1) % enemyController.PatrolPoints.Length;
-                currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
-                enemyController.TransitionToIdle();
-            } 
+
+        if (distance > 0.1f)
+        {
+            enemyController.EnemyMovementRef.MovePatrol(currentPatrolTarget);
+        }
+        else
+        {
+            currentPatrolIndex = (currentPatrolIndex + 1) % enemyController.PatrolPoints.Length;
+            currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
+            enemyController.TransitionToIdle();
+        }
+
+        if (enemyController == null || enemyController.Player == null) return;
+
+        if (Vector3.Distance(enemyController.transform.position, enemyController.Player.transform.position) < enemyController.EnemyStats.chaseRange && enemyController.HasLineOfSight())
+        {
+            enemyController.TransitionToChase();
+        }
     }
 
     public override void ExitState()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyChaseState : EnemyState
 {
-    [Header("References")]
+    //"References"
     private EnemyController enemyController;
 
     public EnemyChaseState(EnemyController controller)
@@ -31,9 +31,13 @@ public class EnemyChaseState : EnemyState
         if(Vector3.Distance(enemyController.transform.position, enemyController.Player.transform.position) > enemyController.EnemyStats.chaseRange)
         {
             //Out of chase range, switch back to patrol
-            enemyController.TransitionToPatrol();
+            enemyController.TransitionReturnToPatrol();
         }
-        else if(Vector3.Distance(enemyController.transform.position, enemyController.Player.transform.position) <= enemyController.EnemyStats.attackRange)
+        else if (enemyController.ShouldReturnToPatrol())
+        {
+            enemyController.TransitionReturnToPatrol();
+        }
+        else if (Vector3.Distance(enemyController.transform.position, enemyController.Player.transform.position) <= enemyController.EnemyStats.attackRange)
         {
             //Within attack range, switch to attack state
             enemyController.TransitionToAttack();
@@ -44,7 +48,7 @@ public class EnemyChaseState : EnemyState
 
     public override void ExitState()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     

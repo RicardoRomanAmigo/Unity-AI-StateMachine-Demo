@@ -30,6 +30,12 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         }
     }
 
+    public void Heal(float healAmount)
+    {
+        currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+
     private void Die()
     {
         OnPlayerDied?.Invoke();

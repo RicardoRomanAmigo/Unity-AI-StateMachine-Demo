@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IDamagable
 {
     [Header("Health")]
     private float currentHealth;
@@ -18,9 +18,20 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
-        OnHealthChanged?.Invoke();
+        if (currentHealth - damage > 0)
+        {
+            currentHealth -= damage;
+            OnHealthChanged?.Invoke();
+        }
+        else
+        {
+            currentHealth = 0;
+            Die();
+        }
     }
 
-
+    private void Die()
+    {
+        GetComponent<EnemyController>().TransitionToDead();
+    }
 }

@@ -12,33 +12,27 @@ public class ProjectileController : MonoBehaviour
 
     //Projctile stats
     private float speed;
-    private float timeToDestroy = 1.5f;
+    private float timeToDestroy = 0.5f;
     private float lifeTime;
     private float damage;
     private GameObject hitAnimationGO;
     private AudioClip hitSound;
     //private string ownerTag;
 
-    
-
     public GameObject ProjectileOwner { get; set; }
+    public Vector2 Direction { get; set; }
 
     private bool hasCollided = false;
-
-    public Vector3 Direction { get; set; }
 
     void Awake()
     {
         if (myCollider == null) myCollider = GetComponent<Collider2D>();
     }
 
-    void Start()
-    {
-        
-    }
-
     public void SetProjectileStats()
-    { if (projectileStats != null) return;
+    { 
+        if (projectileStats == null) return;
+
         speed = projectileStats.speed;
         lifeTime = projectileStats.lifetime;
         damage = projectileStats.damage;
@@ -49,17 +43,17 @@ public class ProjectileController : MonoBehaviour
 
     private void Update()
     { 
-        if (lifeTime <= 0 && hasCollided == false)
+        if (hasCollided) return;
+
+        if (lifeTime <= 0)
         {
             OnCollided();
             StartCoroutine(DestroyGo());
-        }
-        else if (hasCollided == false)
-        {
-            lifeTime -= Time.deltaTime;
-            transform.Translate(Direction * speed * Time.deltaTime);
+            return;
         }
         
+        lifeTime -= Time.deltaTime;
+        transform.position += (Vector3)(Direction * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -68,27 +62,27 @@ public class ProjectileController : MonoBehaviour
         {
             return; // Ignore collisions with the owner
         }
-        else
+        
+        OnCollided();
+
+        IDamagable damagable = other.GetComponent<IDamagable>();
+        if (damagable != null)
         {
-            OnCollided();
-
-            IDamagable damagable = other.GetComponent<IDamagable>();
-            if (damagable != null)
-            {
-                damagable.TakeDamage(damage);
-                AudioManager.Instance.PlaySFX(hitSound);
-            }
-
-            if (hitAnimationGO != null) Instantiate(hitAnimationGO, transform.position, Quaternion.identity);
-
-            StartCoroutine(DestroyGo());
+            damagable.TakeDamage(damage);
+            AudioManager.Instance.PlaySFX(hitSound);
         }
+
+        if (hitAnimationGO != null) Instantiate(hitAnimationGO, transform.position, Quaternion.identity);
+
+        StartCoroutine(DestroyGo());
     }
 
     private void OnCollided()
     {
         if (hasCollided) return;
+
         hasCollided = true;
+
         if (myCollider != null) myCollider.enabled = false; 
     }
 
