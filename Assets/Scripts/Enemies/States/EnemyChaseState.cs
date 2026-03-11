@@ -19,6 +19,7 @@ public class EnemyChaseState : EnemyState
         }
 
         enemyController.EnemyMovementRef.MoveChase();
+        enemyController.EnemyAnimationRef.ChaseAnim(true);
     }
 
     public override void UpdateState()
@@ -39,6 +40,7 @@ public class EnemyChaseState : EnemyState
         }
         else if (Vector3.Distance(enemyController.transform.position, enemyController.Player.transform.position) <= enemyController.EnemyStats.attackRange)
         {
+            enemyController.EnemyAnimationRef.ChaseAnim(false);
             //Within attack range, switch to attack state
             enemyController.TransitionToAttack();
         }

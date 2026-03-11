@@ -183,10 +183,15 @@ MonoBehaviour:
   enemyHealth: {fileID: 6758357777883466190}
   player: {fileID: 0}
   enemyAnimation: {fileID: 2227758650923752666}
+  enemybones: {fileID: 3403150122658658061, guid: 20af6ac6662ceec4ea5ce5d01a5e1f44, type: 3}
+  visionBlockingLayers:
+    serializedVersion: 2
+    m_Bits: 64
   enemyStats: {fileID: 11400000, guid: 43159b6cddca56340aa8f63e3aa10c4d, type: 2}
   patrolPoints:
   - {fileID: 6147659735121675706}
   - {fileID: 7788322459756527022}
+  - {fileID: 4931488692018715365}
 --- !u!114 &2078610441503192239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +315,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8078742310391514611, guid: daf0ff150628f7c4bb9a27ded55a46ba, type: 3}
+  m_Sprite: {fileID: 4416750838544923506, guid: c3c2c3444c0932a4097345dc175561bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -422,7 +427,7 @@ Transform:
   m_GameObject: {fileID: 8735394649216737644}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.9, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

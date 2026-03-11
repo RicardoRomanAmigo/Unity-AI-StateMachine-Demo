@@ -22,4 +22,4 @@ MonoBehaviour:
   patrolSpeed: 1
   patrolWaitTime: 3
   stunedDuration: 0
-  timeToDestroy: 0
+  timeToDestroy: 1

@@ -29,9 +29,11 @@ public class EnemyPatrolState : EnemyState
         if (distance > 0.1f)
         {
             enemyController.EnemyMovementRef.MovePatrol(currentPatrolTarget);
+            enemyController.EnemyAnimationRef.PatrolAnim(true);
         }
         else
         {
+            enemyController.EnemyAnimationRef.PatrolAnim(false);
             currentPatrolIndex = (currentPatrolIndex + 1) % enemyController.PatrolPoints.Length;
             currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
             enemyController.TransitionToIdle();

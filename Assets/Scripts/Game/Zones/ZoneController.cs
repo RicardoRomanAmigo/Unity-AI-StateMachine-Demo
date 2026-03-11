@@ -24,7 +24,7 @@ public class ZoneController : MonoBehaviour
     }
 
     private void OnEnable()
-    {
+    { 
         GameManager.Instance.OnZoneChanged += HandleZoneChanged;
         SubscribeToEnemies();
     }
@@ -126,7 +126,6 @@ public class ZoneController : MonoBehaviour
 
     private void CheckZoneCleared()
     {
-        Debug.Log($"Checking if zone {zoneIndex} is cleared...");
         if (enemiesInZone == null) return;
         foreach (var enemy in enemiesInZone)
         {
@@ -137,7 +136,6 @@ public class ZoneController : MonoBehaviour
             }
                 
         }
-        Debug.Log($"Zone {zoneIndex} cleared!");
         // All enemies are defeated
         zoneFinished = true;
 
@@ -148,8 +146,6 @@ public class ZoneController : MonoBehaviour
         }
             
     }
-
-    
 
     private void ActivateNexLevel()
     {

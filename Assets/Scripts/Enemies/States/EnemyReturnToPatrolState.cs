@@ -19,18 +19,7 @@ public class EnemyReturnToPatrolState : EnemyState
 
         currentPatrolIndex = Mathf.Clamp(currentPatrolIndex, 0, enemyController.PatrolPositions.Length - 1);
         currentPatrolTarget = enemyController.GetNearestPatrolPoint();
-        //currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
-
-        /*for(int i = 0; i < enemyController.PatrolPositions.Length; i++)
-        {
-            if(Vector3.Distance(enemyController.transform.position, enemyController.PatrolPositions[i]) < Vector3.Distance(enemyController.transform.position, currentPatrolTarget))
-            {
-                currentPatrolIndex = i;
-                currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
-            }
-        }*/
-
-
+        
     }
 
     public override void UpdateState()
@@ -48,6 +37,7 @@ public class EnemyReturnToPatrolState : EnemyState
         {
             currentPatrolIndex = (currentPatrolIndex + 1) % enemyController.PatrolPoints.Length;
             currentPatrolTarget = enemyController.PatrolPositions[currentPatrolIndex];
+            enemyController.EnemyAnimationRef.PatrolAnim(false);
             enemyController.TransitionToIdle();
         }
 

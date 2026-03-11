@@ -4,36 +4,36 @@ using System;
 public class PlayerHealth : MonoBehaviour, IDamagable
 {
     // Player health stats
-    private float maxHealth = 100f;
-    private float currentHealth;
+    public float MaxHealth { get; private set; } = 100;
+    public float CurrenHealth { get; set; } = 100;
 
-    public event Action<float> OnHealthChanged;
+    public event Action<float, float> OnHealthChanged;
     public event Action OnPlayerDied;
 
     void Start()
     {
-        currentHealth = maxHealth;
-        OnHealthChanged?.Invoke(currentHealth);
+        CurrenHealth = MaxHealth;
+        OnHealthChanged?.Invoke(CurrenHealth, MaxHealth);
     }
 
     public void TakeDamage(float damage)
     {
-        if (currentHealth - damage >= 0)
+        if (CurrenHealth - damage >= 0)
         {
-            currentHealth -= damage;
-            OnHealthChanged?.Invoke(currentHealth);
+            CurrenHealth -= damage;
+            OnHealthChanged?.Invoke(CurrenHealth, MaxHealth);
         }
         else
         {
-            currentHealth = 0;
+            CurrenHealth = 0;
             Die();
         }
     }
 
     public void Heal(float healAmount)
     {
-        currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
-        OnHealthChanged?.Invoke(currentHealth);
+        CurrenHealth = Mathf.Min(CurrenHealth + healAmount, MaxHealth);
+        OnHealthChanged?.Invoke(CurrenHealth, MaxHealth);
     }
 
     private void Die()
